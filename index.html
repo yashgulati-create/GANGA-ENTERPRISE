@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ganga Enterprise</title>
+    <style>
+      :root {
+        --purple-1: #001f3f; /* dark navy */
+        --purple-2: #003366; /* medium navy */
+        --indigo: #002147; /* deep navy/indigo */
+        --muted: #f7f3fb;
+        --text: #222;
+        --accent: #ff6b00;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+        color: var(--text);
+        background: #fff;
+      }
+
+      /* Header / Nav */
+      .topbar {
+        background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+        color: #fff;
+        padding: 18px 20px;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .brand img {
+        height: 64px;
+        width: 64px;
+        object-fit: contain;
+        border-radius: 8px;
+        background: #fff;
+        padding: 6px;
+      }
+      .brand h1 {
+        font-size: 1.5rem;
+        margin: 0;
+      }
+      .tagline {
+        opacity: 0.95;
+        margin-top: 6px;
+      }
+
+      nav {
+        display: flex;
+        justify-content: center;
+        background: var(--indigo);
+      }
+      nav .nav-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        gap: 20px;
+        padding: 10px;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      /* Hero */
+      .hero {
+        position: relative;
+        overflow: hidden;
+      }
+      .hero .hero-bg {
+        width: 100%;
+        height: 360px;
+        background-image: linear-gradient(
+            90deg,
+            rgba(0, 31, 63, 0.6),
+            rgba(0, 51, 102, 0.6)
+          ),
+          url("https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1600&q=60");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+      }
+      .hero .hero-content {
+        color: #fff;
+        padding: 48px 20px;
+      }
+      .hero h2 {
+        margin: 0;
+        font-size: 2rem;
+      }
+      .hero p {
+        max-width: 700px;
+        margin: 12px 0 18px;
+        opacity: 0.95;
+      }
+      .cta-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 18px;
+        border-radius: 8px;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+      }
+      .btn.secondary {
+        background: transparent;
+        border: 2px solid #fff;
+      }
+
+      /* Services */
+      section {
+        padding: 56px 0;
+      }
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .card {
+        background: var(--muted);
+        padding: 18px;
+        border-radius: 12px;
+        border: 1px solid #ece4f8;
+        box-shadow: 0 6px 18px rgba(0, 31, 63, 0.06);
+        transition: transform 0.25s ease;
+      }
+      .card:hover {
+        transform: translateY(-6px);
+      }
+      .card h3 {
+        color: var(--purple-1);
+        margin: 0 0 8px;
+      }
+
+      /* Clients */
+      .clients {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        align-items: center;
+      }
+      .client-logo {
+        background: #fff;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #eee;
+        min-width: 120px;
+        text-align: center;
+      }
+
+      /* Projects carousel */
+      .carousel {
+        position: relative;
+        overflow: hidden;
+        margin-top: 20px;
+      }
+      .slides {
+        display: flex;
+        transition: transform 0.6s ease; /* animation goes here */
+      }
+      .slide {
+        flex: 0 0 100%; /* each slide takes full width */
+      }
+      .slide img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+      }
+      .carousel .controls {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: space-between;
+      }
+      .ctrl {
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      /* Contact */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 24px;
+      }
+      .contact-card {
+        background: #f8f5ff;
+        padding: 18px;
+        border-radius: 12px;
+        border: 1px solid #e7dff6;
+      }
+      form label {
+        display: block;
+        font-weight: 600;
+        margin: 10px 0 6px;
+      }
+      form input,
+      form textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+      }
+      form button {
+        margin-top: 12px;
+      }
+
+      /* Footer */
+      footer {
+        background: var(--indigo);
+        color: #fff;
+        padding: 22px;
+      }
+
+      /* Animations (fade-in) */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero .hero-bg {
+          height: 420px;
+        }
+      }
+      @media (max-width: 600px) {
+        .brand h1 {
+          font-size: 1.1rem;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        nav .nav-inner {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .hero h2 {
+          font-size: 1.4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container brand">
+        <img src="./logo.jpeg" alt="Ganga Enterprise Logo" />
+        <div>
+          <h1>Ganga Enterprise</h1>
+          <div class="tagline">
+            Electrical | Plumbing | Civil | HVAC | SITC for Electrical Plants
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav>
+      <div class="nav-inner">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#clients">Clients</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg">
+        <div class="container hero-content">
+          <h2>10+ Years of Excellence in Contracting Solutions</h2>
+          <p>
+            Delivering end-to-end electrical, plumbing, civil, HVAC and SITC
+            services for builders and industries with a focus on quality, safety
+            and timely delivery.
+          </p>
+          <div class="cta-row">
+            <a href="#contact" class="btn">Get a Free Quote</a>
+            <a href="#projects" class="btn secondary">View Projects</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="container fade-in">
+      <div class="section-head">
+        <h2>Our Core Services</h2>
+        <p style="opacity: 0.7">
+          Comprehensive solutions across multiple disciplines
+        </p>
+      </div>
+
+      <div class="grid" id="servicesGrid">
+        <div class="card">
+          <h3>Electrical Contracting</h3>
+          <p>
+            HT/LT cabling, transformers, switchgears, DG sets, panels, earthing,
+            power distribution, testing & commissioning and energy-efficiency
+            solutions.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Plumbing Works</h3>
+          <p>
+            Internal & external water systems, sanitary installations, STP
+            piping, rainwater harvesting, sewage systems, and firefighting
+            pipelines.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Civil Contracting</h3>
+          <p>
+            RCC & structural works, foundations, finishing, flooring,
+            renovations, repair works and turnkey infrastructure projects for
+            industry and real-estate.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>HVAC Solutions</h3>
+          <p>
+            Chiller plants, VRF/VRV systems, AHUs, ducts, ventilation,
+            commissioning and O&M of HVAC networks for commercial & industrial
+            sites.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>SITC for Electrical Plants</h3>
+          <p>
+            Supply, installation, testing & commissioning of substations,
+            transformers, UPS, HT/LT panels, switchyards and energy monitoring
+            systems.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Maintenance & Support</h3>
+          <p>
+            Preventive & corrective maintenance, AMC services, spare-part
+            support and emergency response for operational continuity.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS / CAROUSEL -->
+    <section id="projects" class="container fade-in">
+      <div class="section-head">
+        <h2>Featured Projects</h2>
+        <p style="opacity: 0.7">
+          A snapshot of recent assignments across residential, commercial and
+          industrial sectors
+        </p>
+      </div>
+
+      <div class="carousel" id="carousel">
+        <div class="slides" id="slides">
+          <div class="slide">
+            <img src="./pic1.jpeg" alt="Electrical Work" />
+          </div>
+          <div class="slide">
+            <img src="./pic2.jpeg" alt="HVAC Ducting" />
+          </div>
+          <div class="slide">
+            <img src="./pic3.jpeg" alt="Construction Project" />
+          </div>
+        </div>
+        <div class="controls">
+          <div class="ctrl" id="prev">❮</div>
+          <div class="ctrl" id="next">❯</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTS -->
+    <section id="clients" class="container fade-in">
+      <h2>Our Clients</h2>
+      <div class="clients">
+        <div class="client-logo">M3M Group</div>
+        <div class="client-logo">Supertech</div>
+        <div class="client-logo">Munjal Kiriu</div>
+        <div class="client-logo">(More clients...)</div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container fade-in">
+      <div class="section-head">
+        <h2>Contact Us</h2>
+        <p style="opacity: 0.7">
+          Get in touch for a quote or project discussion
+        </p>
+      </div>
+      <div class="contact-grid">
+        <div>
+          <div class="contact-card">
+            <h3>Ganga Enterprise</h3>
+            <p>
+              <strong>Address:</strong> Shop No. 1, Hero Honda Chowk, Gurgaon –
+              122001, Haryana, India
+            </p>
+            <p><strong>Phone:</strong> +91 9953391021</p>
+            <p><strong>Email:</strong> info@gangaenterprise.com</p>
+            <p>
+              We provide free estimates and project consultations. Send us the
+              project details and we will respond within 24 hours.
+            </p>
+            <a class="btn" href="mailto:info@gangaenterprise.com">Email Us</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="contact-card">
+            <form id="contactForm" onsubmit="return submitForm(event)">
+              <label for="name">Name</label>
+              <input id="name" name="name" required />
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" required />
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required />
+              <label for="message">Message / Project Details</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+              ></textarea>
+              <button type="submit" class="btn">Request Quote</button>
+              <div id="formMsg" style="margin-top: 10px; display: none"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+          "
+        >
+          <div>&copy; 2025 Ganga Enterprise</div>
+          <div>
+            Shop No. 1, Hero Honda Chowk, Gurgaon - 122001 | Phone: +91
+            9953391021
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Simple carousel
+      (function () {
+        const slides = document.getElementById("slides");
+        const slideCount = slides.children.length;
+        let idx = 0;
+        const show = (i) => {
+          slides.style.transform = `translateX(${-i * 100}%)`;
+        };
+        document.getElementById("next").addEventListener("click", () => {
+          idx = (idx + 1) % slideCount;
+          show(idx);
+        });
+        document.getElementById("prev").addEventListener("click", () => {
+          idx = (idx - 1 + slideCount) % slideCount;
+          show(idx);
+        });
+        let autoplay = setInterval(() => {
+          idx = (idx + 1) % slideCount;
+          show(idx);
+        }, 4000);
+        ["next", "prev"].forEach((id) =>
+          document
+            .getElementById(id)
+            .addEventListener("mouseenter", () => clearInterval(autoplay))
+        );
+        slides.addEventListener("mouseenter", () => clearInterval(autoplay));
+        slides.addEventListener(
+          "mouseleave",
+          () =>
+            (autoplay = setInterval(() => {
+              idx = (idx + 1) % slideCount;
+              show(idx);
+            }, 4000))
+        );
+      })();
+
+      // Fade-in on scroll
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      document
+        .querySelectorAll(".fade-in, .card, .clients, .contact-card")
+        .forEach((el) => obs.observe(el));
+
+      // Contact form (frontend only)
+      function submitForm(e) {
+        e.preventDefault();
+        const msg = document.getElementById("formMsg");
+        msg.style.display = "block";
+        msg.style.color = "green";
+        msg.textContent =
+          "Thanks — your message has been captured (demo). We will contact you shortly.";
+        e.target.reset();
+        return false;
+      }
+    </script>
+  </body>
+</html>
